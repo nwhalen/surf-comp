@@ -1,19 +1,14 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://www.ndbc.noaa.gov/data/';
-const BASE_URL2 = 'http://localhost:5001/buoy/';
-const REALTIME_URL = 'realtime2/';
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+const LOCAL_API_URL = 'http://localhost:5001/buoy';
 
-
-
-export const fetchBuoyData = async (buoyId) => {
+export const fetchBuoyData = async (buoyIds) => {
   try {
-    const response = await axios.get(`${BASE_URL2}${buoyId}.txt`);
-    // Process the data as needed. For now, we'll assume it's text data.
-    return response.data;
+    // Send a GET request with query parameters
+    const response = await axios.get(`${LOCAL_API_URL}?ids=${buoyIds}`);
+    return response.data; // Return the server's response
   } catch (error) {
-    console.error("Error fetching buoy data:", error);
+    console.error('Error fetching buoy data:', error);
     throw error;
   }
 };
